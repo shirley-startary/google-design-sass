@@ -1,0 +1,96 @@
+$gris-oscuro-titulo:#424242;
+$gris-claro-fecha:#424242;
+$gris-texto:#414549;
+$azul-general:#4285f4;
+$tipo-letra-general:sans-serif;
+// $letra-fechas:;
+$cien-porciento:100%;
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family:$tipo-letra-general;
+}
+body, html{
+  width: $cien-porciento;
+}
+.container{
+  width: $cien-porciento;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.row{
+  &:before{
+    content: " ";
+    display: table;
+  }
+  &:after{
+    @extend .row:before;
+    clear: both;
+  }
+}
+[class*="col-"]{
+  min-height: 7px;
+  padding: 12px;
+  float: left;
+}
+.contenedorImg{
+  // width: $cien-porciento;
+  // height: 100px;
+  img{
+    width: $cien-porciento;
+  }
+}
+hr{
+  align:center;
+  width: 98%;
+  border: 1px solid $azul-general;
+}
+.centrar-texto{
+  text-align: center;
+}
+
+@function anchoColumnas($columns){
+  @return percentage($columns/12);
+}
+
+@for  $numColumns from 1 through 12 {
+  .col-#{$numColumns}{
+    width: anchoColumnas($numColumns);
+  }
+}
+
+@function definirColorLetra($elemento) {
+  @if $elemento == h2 {
+    @return $gris-oscuro-titulo;
+  } @else if $elemento == h4 {
+    @return lighten($gris-oscuro-titulo, 5%);
+  } @else if $elemento == p{
+    @return $gris-texto;
+  }@else if $elemento == li {
+    @return $gris-oscuro-titulo;
+  }@else {
+    @return $azul-general;
+  }
+}
+
+h2{
+  color: definirColorLetra(h2);
+}
+h4{
+  color:definirColorLetra(h4);
+}
+p{
+  color:definirColorLetra(p);
+}
+ul{
+  text-align: center;
+  list-style: none;
+  font-weight: bold;
+  li{
+    color:definirColorLetra(li);
+    display: inline-block;
+    padding-left: 3%;
+  }
+}
